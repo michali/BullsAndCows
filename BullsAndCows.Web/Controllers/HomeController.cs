@@ -26,5 +26,10 @@ namespace BullsAndCows.Web.Controllers
 
             return View();
         }
+
+        public ActionResult TakeGuess()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
