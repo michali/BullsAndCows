@@ -9,9 +9,7 @@ namespace BullsAndCows.Tests
         [Fact]
         public void FindMatches_WhenNoMatches_ShouldReturnNoBullsNoCows()
         {
-            var repository = new Mock<IRepository>();
-            repository.Setup(x => x.GetSecretNumber()).Returns("1234");
-            var matcher = new Matcher(repository.Object);
+            var matcher = CreateMatcherWithSecretCode("1234");
 
             var matches = matcher.FindMatches("6789");
 
@@ -19,11 +17,29 @@ namespace BullsAndCows.Tests
             Assert.Equal(0, matches.Cows);
         }
 
+        private static Matcher CreateMatcherWithSecretCode(string secretCode)
+        {
+            var repository = new Mock<IRepository>();
+            repository.Setup(x => x.GetSecretCode()).Returns(secretCode);
+            var matcher = new Matcher(repository.Object);
+            return matcher;
+        }
+
         [Fact]
         public void FindMatches_WhenFourMatchesAnywhereButSamePosition_ReportTwoCows()
         {
+            var matcher = CreateMatcherWithSecretCode("1234");
+
+            var matches = matcher.FindMatches("3421");
+
+            Assert.Equal(4, matches.Cows);
+        }
+
+        [Fact]
+        public void FindMatches_WhenOneMatchInCorrectPosition_ReportOneBull()
+        {
             var repository = new Mock<IRepository>();
-            repository.Setup(x => x.GetSecretNumber()).Returns("1234");
+            repository.Setup(x => x.GetSecretCode()).Returns("1234");
             var matcher = new Matcher(repository.Object);
 
             var matches = matcher.FindMatches("3421");
@@ -43,7 +59,7 @@ namespace BullsAndCows.Tests
 
         public GuessMatches FindMatches(string guess)
         {
-            var secretNumber = _repository.GetSecretNumber();
+            var secretNumber = _repository.GetSecretCode();
 
             int cowCount = guess.Sum(guessDigit => secretNumber.Count(secretDigit => guessDigit == secretDigit));
 
@@ -65,6 +81,6 @@ namespace BullsAndCows.Tests
 
     public interface IRepository
     {
-        string GetSecretNumber();
+        string GetSecretCode();
     }
 }
