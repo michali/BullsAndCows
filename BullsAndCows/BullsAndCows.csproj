@@ -40,7 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GuessMatches.cs" />
+    <Compile Include="IMatcher.cs" />
     <Compile Include="IRandomizer.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Matcher.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randomizer.cs" />

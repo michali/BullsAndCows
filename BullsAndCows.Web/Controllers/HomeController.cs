@@ -6,6 +6,13 @@ namespace BullsAndCows.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IMatcher _matcher;
+
+        public HomeController(IMatcher matcher)
+        {
+            _matcher = matcher;
+        }
+
         public ActionResult Index()
         {
             return View(new Guess());
@@ -14,7 +21,9 @@ namespace BullsAndCows.Web.Controllers
         [HttpPost]
         public ActionResult TakeGuess(Guess guess)
         {
-            return PartialView("_PastGuesses", guess.Input);
+            var matches = _matcher.FindMatches(guess.Input);
+            
+            return PartialView("_PastGuesses", matches.ToString());
         }
     }
 }
