@@ -1,10 +1,14 @@
-using System;
-
 namespace BullsAndCows
 {
     public class NumberGenerator
     {
-        readonly Random _random = new Random();
+        private readonly IRandomizer _randomizer;
+
+        public NumberGenerator(IRandomizer randomizer)
+        {
+            _randomizer = randomizer;
+        }
+
         private const int NumberLength = 4;
 
         public string Generate()
@@ -13,19 +17,19 @@ namespace BullsAndCows
             
             for (int i = 0; i < NumberLength; i++)
             {
-                output += GetUniqueDigitFor(output);
+                output += GetUniqueNonZeroDigitFor(output);
             }
 
             return output;
         }
 
-        private string GetUniqueDigitFor(string output)
+        private string GetUniqueNonZeroDigitFor(string output)
         {
-            var num = _random.Next(9).ToString();
+            var num = _randomizer.Next(9).ToString();
 
-            if (output.Contains(num))
+            if (output.Contains(num) || num == "0")
             {
-                return GetUniqueDigitFor(output);
+                return GetUniqueNonZeroDigitFor(output);
             }
 
             return num;
