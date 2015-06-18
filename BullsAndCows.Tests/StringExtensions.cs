@@ -4,7 +4,7 @@ namespace BullsAndCows.Tests
 {
     public static class StringExtensions
     {
-        public static bool AllCharsUnique(this string input)
+        public static bool AreAllCharsUnique(this string input)
         {
             var h = new HashSet<char>(input);
 
