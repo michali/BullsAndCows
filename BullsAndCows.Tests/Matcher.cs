@@ -20,27 +20,15 @@ namespace BullsAndCows.Tests
         }
 
         [Fact]
-        public void FindMatches_WhenOneMatchAnywhereButSamePosition_ReportOneCow()
+        public void FindMatches_WhenFourMatchesAnywhereButSamePosition_ReportTwoCows()
         {
             var repository = new Mock<IRepository>();
             repository.Setup(x => x.GetSecretNumber()).Returns("1234");
             var matcher = new Matcher(repository.Object);
 
-            var matches = matcher.FindMatches("6178");
+            var matches = matcher.FindMatches("3421");
 
-            Assert.Equal(1, matches.Cows);
-        }
-
-        [Fact]
-        public void FindMatches_WhenTwoMatchesAnywhereButSamePosition_ReportTwoCows()
-        {
-            var repository = new Mock<IRepository>();
-            repository.Setup(x => x.GetSecretNumber()).Returns("1234");
-            var matcher = new Matcher(repository.Object);
-
-            var matches = matcher.FindMatches("6128");
-
-            Assert.Equal(2, matches.Cows);
+            Assert.Equal(4, matches.Cows);
         }
     }
 
