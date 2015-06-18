@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BullsAndCows.Web.Models;
 
 namespace BullsAndCows.Web.Controllers
 {
@@ -27,9 +28,12 @@ namespace BullsAndCows.Web.Controllers
             return View();
         }
 
-        public ActionResult TakeGuess()
+        [HttpPost]
+        public ActionResult TakeGuess(Guess guess)
         {
-            throw new NotImplementedException();
+            var results = new[] {Guid.NewGuid().ToString(), Guid.NewGuid().ToString()};
+
+            return PartialView("_PastGuesses", results);
         }
     }
 }

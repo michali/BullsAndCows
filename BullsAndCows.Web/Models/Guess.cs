@@ -1,7 +1,9 @@
-﻿namespace BullsAndCows.Web.Models
+﻿using System.Collections.Generic;
+
+namespace BullsAndCows.Web.Models
 {
     public class Guess
     {
-        public string Input { get; set; } 
+        public string Input { get; set; }
     }
 }

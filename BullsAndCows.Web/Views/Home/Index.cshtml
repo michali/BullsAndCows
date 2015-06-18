@@ -10,15 +10,18 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Past Attempts</h2>
-        <ul>
-            <li>one</li>
+        <ul id="pastGuessesList">
+            @Html.Partial("_PastGuesses", new string[0])
         </ul>
     </div>
     <div class="col-md-4">
         <h2>Take a guess</h2>
-        <form method="post" action="@Url.Action("TakeGuess")">
+        @using (Ajax.BeginForm("TakeGuess", "Home", new AjaxOptions {HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "pastGuessesList"
+        }))
+        {
+            @Html.AntiForgeryToken()
             @Html.TextBoxFor(x => x.Input)
             <input id="submitGuess" type="submit" value="Do it"/>
-        </form>
+        }
     </div>
 </div>
