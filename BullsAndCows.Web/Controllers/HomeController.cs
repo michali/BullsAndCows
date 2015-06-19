@@ -22,8 +22,9 @@ namespace BullsAndCows.Web.Controllers
         public ActionResult TakeGuess(Guess guess)
         {
             var matches = _matcher.FindMatches(guess.Input);
+            var guessResult = new GuessResult(matches.Bulls == 4, matches.ToString());
             
-            return PartialView("_PastGuesses", matches.ToString());
+            return PartialView("_PastGuesses", guessResult);
         }
     }
 }

@@ -1,4 +1,8 @@
-﻿@model string
+﻿@model BullsAndCows.Web.Models.GuessResult
 
+@if (Model.GuessIsCorrect)
+{
+    <li>Game Over!</li>
+}
 <li>@Model</li>
 
