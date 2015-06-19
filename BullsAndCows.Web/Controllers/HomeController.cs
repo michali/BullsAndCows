@@ -30,8 +30,14 @@ namespace BullsAndCows.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult TakeGuess(Guess guess)
         {
+            if (!ModelState.IsValid)
+            {
+                return PartialView("Index");
+            }
+
             var matches = _matcher.FindMatches(guess.Input);
             var guessResult = new GuessResult(matches.Bulls == Keys.CodeLength, matches.ToString());
             
