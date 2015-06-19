@@ -35,7 +35,7 @@ namespace BullsAndCows.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return PartialView("Index");
+                return PartialView("_ValidationError");
             }
 
             var matches = _matcher.FindMatches(guess.Input);

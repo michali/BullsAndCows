@@ -1,0 +1,7 @@
+﻿@foreach (var modelStateValue in ViewData.ModelState.Values)
+{
+     foreach (var errorMsg in modelStateValue.Errors)
+     {
+         @errorMsg.ErrorMessage<br/>
+     }
+}
