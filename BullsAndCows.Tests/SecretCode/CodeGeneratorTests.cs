@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using BullsAndCows.Random;
+using BullsAndCows.SecretCode;
 using Moq;
 using Xunit;
 
-namespace BullsAndCows.Tests
+namespace BullsAndCows.Tests.SecretCode
 {
-    public class NumberGeneratorTests
+    public class CodeGeneratorTests
     {
         [Fact]
         public void GenerateNumber_GeneratesANumber4DigitsLong()
@@ -18,7 +18,7 @@ namespace BullsAndCows.Tests
             Assert.Equal("1234", number);
         }
 
-        private static NumberGenerator CreateNumberGeneratorWithExpectedNumberSequence(params int[] numbers)
+        private static SecretCodeGenerator CreateNumberGeneratorWithExpectedNumberSequence(params int[] numbers)
         {
             var randomizer = new Mock<IRandomizer>();
             var numberQueue = new Queue<int>();
@@ -29,7 +29,7 @@ namespace BullsAndCows.Tests
             }
 
             randomizer.Setup(x => x.Next(It.IsAny<int>())).Returns(numberQueue.Dequeue);
-            var numberGenerator = new NumberGenerator(randomizer.Object);
+            var numberGenerator = new SecretCodeGenerator(randomizer.Object);
             return numberGenerator;
         }
 

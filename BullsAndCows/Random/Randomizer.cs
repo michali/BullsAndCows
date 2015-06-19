@@ -1,10 +1,8 @@
-using System;
-
-namespace BullsAndCows
+namespace BullsAndCows.Random
 {
     public class Randomizer : IRandomizer
     {
-        private readonly Random _random = new Random();
+        private readonly System.Random _random = new System.Random();
 
         public int Next(int maxValue)
         {

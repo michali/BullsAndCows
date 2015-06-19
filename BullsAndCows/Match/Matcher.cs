@@ -1,24 +1,24 @@
 using System.Linq;
+using BullsAndCows.Data;
 
-namespace BullsAndCows
+namespace BullsAndCows.Match
 {
     public class Matcher : IMatcher
     {
-        private const int AllowedLength = 4;
-        private readonly IRepository _repository;
+        private readonly ISecretCodeRepository _secretCodeRepository;
 
-        public Matcher(IRepository repository)
+        public Matcher(ISecretCodeRepository secretCodeRepository)
         {
-            _repository = repository;
+            _secretCodeRepository = secretCodeRepository;
         }
 
         public GuessMatches FindMatches(string guess)
         {
-            var secretCode = _repository.GetSecretCode();
+            var secretCode = _secretCodeRepository.Get();
 
             var cowCount = 0;
 
-            for (int i = 0; i < AllowedLength; i++)
+            for (int i = 0; i < Keys.CodeLength; i++)
             {
                 if (secretCode.Contains(guess[i]) && guess[i] != secretCode[i])
                 {
@@ -28,7 +28,7 @@ namespace BullsAndCows
             
             var bullCount = 0;
 
-            for (int i = 0; i < AllowedLength; i ++)
+            for (int i = 0; i < Keys.CodeLength; i ++)
             {
                 if (guess[i] == secretCode[i])
                 {

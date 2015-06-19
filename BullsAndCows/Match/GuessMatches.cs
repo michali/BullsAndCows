@@ -1,4 +1,4 @@
-namespace BullsAndCows
+namespace BullsAndCows.Match
 {
     public struct GuessMatches
     {

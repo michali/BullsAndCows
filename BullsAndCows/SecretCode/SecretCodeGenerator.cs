@@ -1,21 +1,21 @@
-namespace BullsAndCows
+using BullsAndCows.Random;
+
+namespace BullsAndCows.SecretCode
 {
-    public class NumberGenerator
+    public class SecretCodeGenerator : ISecretCodeGenerator
     {
         private readonly IRandomizer _randomizer;
 
-        public NumberGenerator(IRandomizer randomizer)
+        public SecretCodeGenerator(IRandomizer randomizer)
         {
             _randomizer = randomizer;
         }
-
-        private const int NumberLength = 4;
 
         public string Generate()
         {
             string output = string.Empty;
             
-            for (int i = 0; i < NumberLength; i++)
+            for (int i = 0; i < Keys.CodeLength; i++)
             {
                 output += GetUniqueNonZeroDigitFor(output);
             }

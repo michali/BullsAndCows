@@ -1,4 +1,4 @@
-namespace BullsAndCows
+namespace BullsAndCows.Random
 {
     public interface IRandomizer
     {

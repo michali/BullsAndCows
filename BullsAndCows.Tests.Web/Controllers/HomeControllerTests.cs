@@ -1,5 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Xml.Serialization;
+using BullsAndCows.Data;
+using BullsAndCows.Match;
+using BullsAndCows.SecretCode;
 using BullsAndCows.Web.Controllers;
 using BullsAndCows.Web.Models;
 using Moq;
@@ -61,8 +64,22 @@ namespace BullsAndCows.Tests.Web.Controllers
             var guessMatches = new GuessMatches(expectedBulls, expectedCows);
             var matcher = new Mock<IMatcher>();
             matcher.Setup(x => x.FindMatches(input)).Returns(guessMatches);
-            var controller = new HomeController(matcher.Object);
+            var controller = new HomeController(matcher.Object, new Mock<ISecretCodeGenerator>().Object, new Mock<ISecretCodeRepository>().Object);
             return controller;
+        }
+
+        [Fact]
+        public void Index_ShouldAddAndStoreARandomNumber()
+        {
+            var secretCode = "1234";
+            var secretCodeGenerator = new Mock<ISecretCodeGenerator>();
+            secretCodeGenerator.Setup(x => x.Generate()).Returns("1234");
+            var secretCodeRepository = new Mock<ISecretCodeRepository>();
+            var controller = new HomeController(new Mock<IMatcher>().Object, secretCodeGenerator.Object, secretCodeRepository.Object);
+
+            controller.Index();
+
+            secretCodeRepository.Verify(x=>x.Add(secretCode));
         }
     }
 }

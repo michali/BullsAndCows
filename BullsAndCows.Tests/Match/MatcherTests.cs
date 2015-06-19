@@ -1,16 +1,16 @@
-﻿using System;
+using BullsAndCows.Data;
+using BullsAndCows.Match;
 using Moq;
 using Xunit;
-using Xunit.Sdk;
 
-namespace BullsAndCows.Tests
+namespace BullsAndCows.Tests.Match
 {
     public class MatcherTests
     {
         private static Matcher CreateMatcherWithSecretCode(string secretCode)
         {
-            var repository = new Mock<IRepository>();
-            repository.Setup(x => x.GetSecretCode()).Returns(secretCode);
+            var repository = new Mock<ISecretCodeRepository>();
+            repository.Setup(x => x.Get()).Returns(secretCode);
             var matcher = new Matcher(repository.Object);
             return matcher;
         }
